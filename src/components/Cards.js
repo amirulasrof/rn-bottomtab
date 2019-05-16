@@ -5,9 +5,22 @@ import {
     Text,
     View, 
 		Button } from "react-native";
-		
 import { ButtonGroup, Card } from 'react-native-elements';
 //react-navigation 3x
+
+
+function getMoviesFromApiAsync() {
+  return fetch('https://facebook.github.io/react-native/movies.json')
+    .then((response) => response.json())
+    .then((responseJson) => {
+
+    	alert(JSON.stringify(responseJson));
+      //return responseJson.movies;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
 
 class Cards extends React.Component {
 
@@ -31,16 +44,24 @@ class Cards extends React.Component {
 	}
 
 	updateIndex (selectedIndex) {
-		this.setState({selectedIndex})
+		this.setState({selectedIndex});
+		//alert(selectedIndex);
 	}
 
 	render() {
 
-		const list = ['Hello', 'World', 'Buttons']
-		const { selectedIndex } = this.state
+		const list = ['Track', 'History'];
+		const { selectedIndex } = this.state;
 	
 		return (
 			<View style={styles.container}>
+
+			<Button
+			  onPress={ getMoviesFromApiAsync }
+			  title="Learn More"
+			  color="#841584"
+			/>
+
 				<View style={styles.buttonG}>
 					<ButtonGroup
 						underlayColor="red"
@@ -51,10 +72,11 @@ class Cards extends React.Component {
 					/>
 				</View>
 
-			<Card containerStyle={{padding: 40}} >
+			<Card>
 			
 			</Card>
-			</View>
+
+		</View>
 		);
 	}
 }
@@ -65,8 +87,9 @@ const styles = StyleSheet.create({
 		backgroundColor: '#F5FCFF',
 	},
 	buttonG:{
-		marginTop: 15,
-	}
+		marginTop: 6,
+		borderRadius: 50,
+	},
 	
 });
 
