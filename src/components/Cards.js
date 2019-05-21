@@ -7,13 +7,15 @@ import {
 		Button } from "react-native";
 import { ButtonGroup, Card } from 'react-native-elements';
 //react-navigation 3x
-
+var stat = false;
+var data;
 
 function getMoviesFromApiAsync() {
   return fetch('https://facebook.github.io/react-native/movies.json')
     .then((response) => response.json())
     .then((responseJson) => {
-
+			stat = true;
+			data = JSON.stringify(responseJson);
     	alert(JSON.stringify(responseJson));
       //return responseJson.movies;
     })
@@ -56,11 +58,11 @@ class Cards extends React.Component {
 		return (
 			<View style={styles.container}>
 
-			<Button
-			  onPress={ getMoviesFromApiAsync }
-			  title="Learn More"
-			  color="#841584"
-			/>
+				<Button
+					onPress={ getMoviesFromApiAsync }
+					title="Learn More"
+					color="#841584"
+				/>
 
 				<View style={styles.buttonG}>
 					<ButtonGroup
@@ -72,10 +74,18 @@ class Cards extends React.Component {
 					/>
 				</View>
 
-			<Card>
-			
-			</Card>
+				{stat === true
+					&& <Text> {data} </Text>
+				}
 
+				{selectedIndex === 0
+          && 
+          <Text style={styles.tabContent}> Tab one </Text>
+        }
+        {selectedIndex === 1
+          && 
+          <Text style={styles.tabContent}> Tab two</Text>
+        }
 		</View>
 		);
 	}
@@ -94,3 +104,38 @@ const styles = StyleSheet.create({
 });
 
 export default Cards;
+
+//or using this
+
+// import React, { Component } from "react";
+// import { 
+//     Platform, 
+//     StyleSheet, 
+//     Text,
+//     View, 
+// 		Button } from "react-native";
+// import SegmentedView from './SegmentedView';
+// //import Drawer from './Drawer';
+
+// class Cards extends React.Component{
+
+// 	static navigationOptions = {
+// 		title: "Cards",
+// 		headerStyle: {
+// 			backgroundColor: '#EE3439',
+// 		},
+// 		headerTintColor: '#fff',
+// 		headerTitleStyle: {
+// 			fontWeight: 'bold',
+// 		},
+// 	};
+
+// 	render(){
+// 		return (
+// 			<SegmentedView />
+// 		)
+// 	}
+
+// }
+
+// export default Cards;

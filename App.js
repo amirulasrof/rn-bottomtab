@@ -22,6 +22,7 @@ const TabNavigator = createBottomTabNavigator(
 
     // Home: Home,
     // Settings: Settings
+    
     Home: {
       screen: createStackNavigator(
         { Home: Home },
